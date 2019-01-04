@@ -1,4 +1,4 @@
-//Global variables
+//global variables
 String hours = "00";
 String minutes = "00";
 String seconds = "00";
@@ -7,50 +7,28 @@ byte humidity = 0;
 bool button1Ps = false;
 bool button2Ps = false;
 bool button3Ps = false;
-bool lastSave = false;
-String tempAnimation = "";
-int tempImage = 0;
 
-#define LS_PIN 39
-#define LS_GND 14
-#define LS_VCC 32
-#define BUTTON_GND 33
-#define BUTTON1_PIN 25
-#define BUTTON2_PIN 26
-#define BUTTON3_PIN 27
-#define SD_PIN  5
-#define LED_PIN  13
-#define DHT_PIN 15
-#define MATRIX_WIDTH   16
-#define MATRIX_HEIGHT  16
-#define NUM_LEDS    MATRIX_WIDTH*MATRIX_HEIGHT
-#define MATRIX_TYPE    HORIZONTAL_ZIGZAG_MATRIX
-#define DHTTYPE DHT11   
-#define RTC_I2C_ADDRESS 0x68 // I2C Adresse des RTC  DS3231
-#define DEBUG 0
-
-
-//includes
+//external includes
 #include <FastLED.h>
-#include <LEDMatrix.h>
+//#include <LEDMatrix.h>
 #include <Wire.h>
 #include "DHT.h"
 #include "SD.h"
 #include "SPI.h"
+
+//other includes
+#include "config.h"
+#include "Matrix.h"
 #include "BMPreader.h"
 #include "fonts.h"
-#include "storedImages.h"
 #include "animationLoader.h"
-#include "matrixRotate.h"
 #include "stuff.h"
+#include "Matrix.h"
 
 //instances
-cLEDMatrix<MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_TYPE> leds;
+//cLEDMatrix<MATRIX_WIDTH, MATRIX_HEIGHT, MATRIX_TYPE> leds;
+Matrix matrix = Matrix();
 DHT dht(DHT_PIN, DHTTYPE);
-
-
-
-
 
 //-------------------------------------------------------------------------
 
@@ -65,26 +43,23 @@ void setup() {
   digitalWrite(LS_VCC, HIGH);
   digitalWrite(LS_GND, LOW);
   digitalWrite(BUTTON_GND, LOW);
+  
   Serial.begin(115200);
   Wire.begin();
-  FastLED.addLeds<WS2812, LED_PIN, GRB> (leds[0], leds.Size()).setCorrection(TypicalSMD5050);
-  FastLED.setMaxPowerInVoltsAndMilliamps(5, 1000);
-  FastLED.setBrightness(64);
+  //FastLED.addLeds<WS2812, LED_PIN, GRB> (leds[0], leds.Size()).setCorrection(TypicalSMD5050);
   if (!SD.begin(SD_PIN)) {
     Serial.println("Card Mount Failed");
-    error_state(leds);
+    //error_state(leds);
   }
   dht.begin();
   print_status();
 }
 
 void loop() {
-  load_all_animations(leds,dht);
+  load_all_animations(matrix,dht);
 }
 
 //-------------------------------------------------------------------------
-
-
 
 void print_status()
 {
@@ -102,7 +77,6 @@ void print_status()
   Serial.print("time taken: ");
   Serial.println(millis() - cTime);
   Serial.println();
-
 }
 
 

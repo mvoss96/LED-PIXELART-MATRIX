@@ -1,9 +1,5 @@
 #ifndef BMPREADER_H
 #define BMPREADER_H
-#ifndef DEBUG
-#define DEBUG 0
-#endif
-
 //read up to 4 Bytes form the File p_file and store it as  int32_t
 int32_t readNbytes32(File& p_file, int pos = -1, byte nBytes = 4)
 {
@@ -45,7 +41,7 @@ int16_t readNbytes16(File& p_file, int pos = -1, byte nBytes = 2)
 }
 
 
-int readBMP(cLEDMatrixBase &matrix, String path)
+int readBMP(Matrix &matrix, String path)
 {
   unsigned long start_time = millis();
   //see http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2003_w/misc/bmp_file_format/bmp_file_format.htm for reference
@@ -114,16 +110,15 @@ int readBMP(cLEDMatrixBase &matrix, String path)
   }
   bmpFile.seek(file_header.image_offset);   //skip the whole header
   byte r, g, b;
-  for (byte column = 0; column <  16; column++)
+  for (byte column = 1; column <=  16; column++)
   {
-    for (byte row = 0; row < 16; row++)
+    for (byte row = 1; row <= 16; row++)
     {
       b = bmpFile.read();
       g = bmpFile.read();
       r = bmpFile.read();
-      matrix(row, column).r = r;
-      matrix(row, column).g = g;
-      matrix(row, column).b = b;
+      CRGB color = CRGB(r,g,b);
+      matrix.setPixel(row, column, color);
     }
   }
   unsigned long current_time = millis();

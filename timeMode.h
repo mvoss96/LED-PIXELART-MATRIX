@@ -2,7 +2,6 @@
 #define TIMEMODE_H
 #include "fonts.h"
 #include "stuff.h"
-#include "matrixRotate.h"
 #include <FastLED.h>
 
 //fonts
@@ -10,27 +9,27 @@ font5x3 font5x3;
 font7x3 font7x3;
 CRGB timeColor = CRGB::White;
 
-void draw_time_and_temp(cLEDMatrixBase &matrix)
+void draw_time_and_temp(Matrix &matrix)
 {
   byte mx;
   byte hx;
-  font7x3.drawNumber(matrix, 0, 8, hours, timeColor);
-  font7x3.drawNumber(matrix, 9, 8, minutes, timeColor);
-  matrix(10, 5) = timeColor;
-  font5x3.drawNumber(matrix, 2, 1, String(temperature), timeColor);
-  font5x3.drawNumber(matrix, 12, 1, "c", timeColor);
+  font7x3.drawNumber(matrix, 1, 9, hours, timeColor);
+  font7x3.drawNumber(matrix, 10, 9, minutes, timeColor);
+  //matrix(10, 5) = timeColor;
+  font5x3.drawNumber(matrix, 3, 2, String(temperature), timeColor);
+  font5x3.drawNumber(matrix, 13, 2, "c", timeColor);
 }
 
-void draw_time_and_humid(cLEDMatrixBase &matrix)
+void draw_time_and_humid(Matrix &matrix)
 {
   byte mx;
   byte hx;
-  font7x3.drawNumber(matrix, 0, 8, hours, timeColor);
-  font7x3.drawNumber(matrix, 9, 8, minutes, timeColor);
-  font5x3.drawNumber(matrix, 0, 1, String(humidity), timeColor);
-  matrix.DrawLine(10, 1, 14, 5, timeColor);
-  matrix(10, 5) = timeColor;
-  matrix(14, 1) = timeColor;
+  font7x3.drawNumber(matrix, 1, 9, hours, timeColor);
+  font7x3.drawNumber(matrix, 10, 9, minutes, timeColor);
+  font5x3.drawNumber(matrix, 1, 2, String(humidity), timeColor);
+  //matrix.DrawLine(10, 1, 14, 5, timeColor);
+  //matrix(10, 5) = timeColor;
+  //matrix(14, 1) = timeColor;
 }
 
 byte bcdToDec(byte val) {
@@ -67,7 +66,7 @@ void readTimeRTC()
   bcdToDec(Wire.read());
 }
 
-void timemode(cLEDMatrixBase &matrix, DHT &dht)
+void timemode(Matrix &matrix, DHT &dht)
 {
   byte modi = 0;
   CRGB colors[5] = {CRGB::White, CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Yellow};
@@ -110,7 +109,7 @@ void timemode(cLEDMatrixBase &matrix, DHT &dht)
         draw_time_and_humid(matrix);
         break;
     }
-    rotate(matrix);
+    //rotate(matrix);
     FastLED.show();
   }
 }

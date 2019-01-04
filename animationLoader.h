@@ -1,20 +1,19 @@
 #ifndef ANIMATION_LOADER_H
 #define ANIMATION_LOADER_H
-#include "storedImages.h"
 #include "stuff.h"
-#include "matrixRotate.h"
+
 #include "timeMode.h"
 
-void  error_state(cLEDMatrixBase &matrix)
+void error_state(Matrix &matrix)
 {
   while (true) {
     FastLED.clear();
-    load_stored_image(matrix, IMG_warning);
+    //load_stored_image(matrix, IMG_warning);
     FastLED.show();
   }
 }
 
-byte doBackgroundStuff(cLEDMatrixBase &matrix, DHT &dht)
+byte doBackgroundStuff(Matrix &matrix, DHT &dht)
 {
 
   brightness_control();
@@ -66,7 +65,7 @@ int readFromConfig(String param, String path)
   return -1;
 }
 
-int drawAnimation(cLEDMatrixBase &matrix, String animationPath, int duration, DHT &dht)
+int drawAnimation(Matrix &matrix, String animationPath, int duration, DHT &dht)
 {
   unsigned long debugTime = millis();
   byte nFrames = 0;
@@ -154,8 +153,8 @@ int drawAnimation(cLEDMatrixBase &matrix, String animationPath, int duration, DH
         Serial.print("frametime:");
         Serial.print(millis() - timer);
       }
-      rotate(matrix);
-      FastLED.show();
+      //rotate(matrix);
+      matrix.update();
       timer = millis();
       if (readBMP(matrix, filename) != 0) {
         Serial.println("Error: Something went wrong");
@@ -166,7 +165,7 @@ int drawAnimation(cLEDMatrixBase &matrix, String animationPath, int duration, DH
   }
 }
 
-int load_all_animations(cLEDMatrixBase &matrix, DHT &dht)
+int load_all_animations(Matrix &matrix, DHT &dht)
 {
   int start = 0;
   int nAnimations = 0;

@@ -23,7 +23,7 @@ class font5x3
     ~font5x3() {}
     //This Method gets as input an string of numbers (s) and a starting position s_x and s_y. c1 is the foreground color and c2 the background color.
     //The Method then goes through the input string and chooses the right array containing boolean pixeldata (1 = foreground color, 0 = background color)
-    void drawNumber(cLEDMatrixBase &matrix, byte s_x, byte s_y, String s, CRGB c1 = CRGB::White, CRGB c2 = CRGB::Black) //Draw a  Number at x,y
+    void drawNumber(Matrix &matrix, byte s_x, byte s_y, String s, CRGB c1 = CRGB::White, CRGB c2 = CRGB::Black) //Draw a  Number at x,y
     {
       bool * number;
       for (byte i = 0; i < s.length(); i++) //go through the input string s f.e. "10"
@@ -60,9 +60,9 @@ class font5x3
           for (byte row = 1; row <= fontwidth; row++, counter++)
           {
             if (number[counter] == true)
-              matrix(x + row - 1, y + column - 1) = c1;
+              matrix.setPixel(x + row - 1, y + column - 1, c1);
             else
-              matrix(x + row - 1, y + column - 1) = c2;
+              matrix.setPixel(x + row - 1, y + column - 1, c2);
           }
         }
       }
@@ -89,7 +89,7 @@ class font7x3
   public:
     font7x3() {}
     ~font7x3() {}
-    void drawNumber(cLEDMatrixBase &matrix, byte s_x, byte s_y, String s, CRGB c1 = CRGB::White, CRGB c2 = CRGB::Black) //Draw a  Number at x,y
+    void drawNumber(Matrix &matrix, byte s_x, byte s_y, String s, CRGB c1 = CRGB::White, CRGB c2 = CRGB::Black) //Draw a  Number at x,y
     {
       bool * number;
       for (byte i = 0; i < s.length(); i++) //go through the input string s f.e. "10"
@@ -126,9 +126,9 @@ class font7x3
           for (byte row = 1; row <= fontwidth; row++, counter++)
           {
             if (number[counter] == true)
-              matrix(x + row - 1, y + column - 1) = c1;
+              matrix.setPixel(x + row - 1, y + column - 1, c1);
             else
-              matrix(x + row - 1, y + column - 1) = c2;
+              matrix.setPixel(x + row - 1, y + column - 1, c2);
           }
         }
       }
