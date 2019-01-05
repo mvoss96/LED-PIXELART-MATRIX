@@ -16,6 +16,8 @@ class SensorHandler {
     String minutes;
     int lsVarr[100] = {0};;
     byte lsVcount = 0;
+    long buttonPollTime;
+    long buttonPollDuration;
 
   public:
     SensorHandler() {
@@ -23,36 +25,31 @@ class SensorHandler {
       minutes = "00";
       temperature = 0;
       button1 = button2 = button3 = false;
+      buttonPollTime = millis();
+      buttonPollDuration = 300;
     };
 
     byte readButtons()
     {
-      if (digitalRead(BUTTON1_PIN) == HIGH)
-      {
-        button1 = false;
-      }
-      else if (button1 == false) {
-        Serial.println("Button 1 pressed");
-        button1 = true;
-        return 1;
-      }
-      if (digitalRead(BUTTON2_PIN) == HIGH)
-      {
-        button2 = false;
-      }
-      else if (button2 == false) {
-        Serial.println("Button 2 pressed");
-        button2 = true;
-        return 2;
-      }
-      if (digitalRead(BUTTON3_PIN) == HIGH)
-      {
-        button3 = false;
-      }
-      else if (button3 == false) {
-        Serial.println("Button 3 pressed");
-        button3 = true;
-        return 3;
+      if (buttonPollTime + buttonPollDuration < millis()) {
+        if (digitalRead(BUTTON1_PIN) == LOW)
+        {
+          Serial.println("Button1 pressed");
+          buttonPollTime = millis();
+          return 1;
+        }
+        else if (digitalRead(BUTTON2_PIN) == LOW)
+        {
+          Serial.println("Button2 pressed");
+          buttonPollTime = millis();
+          return 2;
+        }
+        else if (digitalRead(BUTTON3_PIN) == LOW)
+        {
+          Serial.println("Button3 pressed");
+          buttonPollTime = millis();
+          return 3;
+        }
       }
       return 0;
     }
