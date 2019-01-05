@@ -27,7 +27,6 @@ CRGB Matrix::getPixel(byte x, byte y) {
   else {
     pos = (y - 1) * MATRIX_WIDTH + MATRIX_WIDTH - x;
   }
-  //CRGB color = CRGB(leds[pos].r,)
   return leds[pos];
 }
 
@@ -63,3 +62,7 @@ void Matrix::loadPgmImage(const long *image) {
   }
 }
 
+void Matrix::showError(){
+  loadPgmImage(errorImage);
+  FastLED.show();
+}
