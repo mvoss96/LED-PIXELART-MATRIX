@@ -35,7 +35,6 @@ void setup() {
   Serial.begin(115200);
   Wire.begin();
   anim = new AnimationHandler(matrix);
-  //print_status();
 }
 
 void loop() {
@@ -43,24 +42,5 @@ void loop() {
 }
 
 //-------------------------------------------------------------------------
-
-/*
-void print_status()
-{
-  int cTime = millis();
-  Serial.println();
-  String output = "Statusreport: ";
-  String divider = "/";
-  String divider2 = ":";
-  output = (output + divider + hours + divider2 + minutes + divider2);
-  Serial.println(output);
-  Serial.println("Temperature: " + String(temperature));
-  Serial.print("Brightness: ");
-  Serial.println(FastLED.getBrightness());
-  Serial.print("time taken: ");
-  Serial.println(millis() - cTime);
-  Serial.println();
-}
-*/
 
 

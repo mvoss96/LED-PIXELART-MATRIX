@@ -1,8 +1,5 @@
 #ifndef ANIMATION_LOADER_H
 #define ANIMATION_LOADER_H
-#include "stuff.h"
-
-#include "timeMode.h"
 
 void error_state(Matrix &matrix)
 {
