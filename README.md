@@ -1,5 +1,5 @@
 # LED-PIXELART-MATRIX
-![image](/01.JPG){:height="700px" width="400px"}
+![image](/01.JPG)
 WIP firmware for an esp32 based LED Matrix
 
 This is the firmware for my DIY LED Pixelart aniamtion matrix. 
