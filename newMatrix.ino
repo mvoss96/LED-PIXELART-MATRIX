@@ -1,4 +1,3 @@
-
 //external includes
 #include <FastLED.h>
 #include <Wire.h>

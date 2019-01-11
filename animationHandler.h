@@ -57,7 +57,7 @@ class AnimationHandler {
     File file;
     File animationDir;
     File dir;
-    int animationDuration = 5000;
+    int animationDuration = ANIMATION_DURATION;
     CRGB timeColor;
 
 
@@ -158,9 +158,11 @@ class AnimationHandler {
             int i = sensors->readButtons();
             switch (i)
             {
+#ifdef USE_RTC_CLOCK
               case 1:
-                timemode();
+                  timemode();
                 break;
+#endif
               case 2:
                 Serial.println("Skipping...");
                 return 0;
@@ -296,9 +298,11 @@ class AnimationHandler {
       sensors->getTime(minutes, hours);
       font7x3.drawNumber(*matrix, 1, 9, hours, timeColor);
       font7x3.drawNumber(*matrix, 10, 9, minutes, timeColor);
+#ifdef USE_TEMP_SENSOR
       matrix->setPixel(11, 6, timeColor);
       font5x3.drawNumber(*matrix, 3, 2, String(sensors->readTemp()), timeColor);
       font5x3.drawNumber(*matrix, 13, 2, "c", timeColor);
+#endif
     }
 
     void timemode()

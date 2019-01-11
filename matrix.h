@@ -8,7 +8,7 @@ class Matrix
 {
   private:
     CRGB leds[MATRIX_WIDTH * MATRIX_HEIGHT];
-    int rotation = 180;
+    int rotation = MATRIX_ROTATION;
     void loadPgmImage(const long *image);
     const long errorImage[256] PROGMEM = {
       0x0b0b0b, 0x0b0b0b, 0x0b0b0b, 0x0b0b0b, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0x0b0b0b, 0x0b0b0b, 0x0b0b0b, 0x0b0b0b,

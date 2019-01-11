@@ -1,8 +1,10 @@
 #ifndef SENSOR_HANDLER_H
 #define SENSOR_HANDLER_H
 
+#ifdef USE_TEMP_SENSOR
 OneWire oneWire(TEMP_PIN);
 DallasTemperature sensors(&oneWire);
+#endif
 
 byte bcdToDec(byte val) {
   return ( (val / 16 * 10) + (val % 16) );
@@ -31,6 +33,7 @@ class SensorHandler {
 
     byte readButtons()
     {
+#ifdef USE_BUTTONS
       if (buttonPollTime + buttonPollDuration < millis()) {
         if (digitalRead(BUTTON1_PIN) == LOW)
         {
@@ -51,18 +54,24 @@ class SensorHandler {
           return 3;
         }
       }
+#endif
       return 0;
     }
 
     int readTemp() {
+#ifdef USE_TEMP_SENSOR
       EVERY_N_SECONDS(5) {
         sensors.requestTemperatures(); // Send the command to get temperatures
         temperature = round(sensors.getTempCByIndex(0));
       }
       return temperature;
+#else
+      return -99;
+#endif
     }
 
     void controllBrightness() {
+#ifdef USE_LIGHT_SENSOR
       int lsV = analogRead(LS_PIN);
       lsVarr[lsVcount] = lsV;
       lsVcount++;
@@ -89,6 +98,7 @@ class SensorHandler {
         targetB = bMax;
       }
       FastLED.setBrightness(targetB);
+#endif
     }
 
     void getTime(String &outMinutes, String &outHours) {
@@ -99,6 +109,7 @@ class SensorHandler {
 
     void readTimeRTC()
     {
+#ifdef USE_RTC_CLOCK
       Wire.beginTransmission(RTC_I2C_ADDRESS); //Aufbau der Verbindung
       Wire.write(0);
       Wire.endTransmission();
@@ -120,6 +131,7 @@ class SensorHandler {
       bcdToDec(Wire.read());
       bcdToDec(Wire.read());
       bcdToDec(Wire.read());
+#endif
     }
 
 };
