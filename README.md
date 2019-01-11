@@ -1,5 +1,4 @@
 # LED-PIXELART-MATRIX
-![image](/01.JPG)
 WIP firmware for an esp32 based LED Matrix
 
 This is the firmware for my DIY LED Pixelart aniamtion matrix. 
@@ -26,3 +25,4 @@ for switching between different modes, skipping an animation or enabling loop mo
 -To-Do-
 -detailed assambly instrucions
 -optional wifi functionality for esp32 and other microcontrolles with onbaord wifi
+![image](/01.JPG)
