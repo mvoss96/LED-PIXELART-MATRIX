@@ -6,7 +6,7 @@ You can find the stl files and more inforamtion about this project here:
 https://www.thingiverse.com/thing:3349738
 
 I got the inspiration from the gameframe by ledseq however this firmware was written completly from scratch.
-my firmware supports laoding 16x16 .bmp files as animations from an SD-card and is also compatible to the origianl gameframe animations,
+the firmware supports loading 16x16 .bmp files as animations from an SD-card and is also compatible to the original gameframe animations,
 that you can buy from ledseq.
 
 Other features that are supportet:
@@ -23,6 +23,6 @@ for switching between different modes, skipping an animation or enabling loop mo
 
 
 -To-Do-
--detailed assambly instrucions
+-detailed assembly instrucions
 -optional wifi functionality for esp32 and other microcontrolles with onbaord wifi
 ![image](/01.JPG)
