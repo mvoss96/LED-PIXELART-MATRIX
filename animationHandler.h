@@ -69,6 +69,7 @@ class AnimationHandler {
       timeColor = CRGB::White;
       if (!SD.begin(SD_PIN)) {
         Serial.println("Card Mount Failed");
+        matrix.showError();
         return;
       }
       animationDir = SD.open(animationRootPath);
