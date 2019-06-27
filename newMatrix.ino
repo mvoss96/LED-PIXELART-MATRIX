@@ -1,8 +1,8 @@
 //external includes
 #include <FastLED.h>
 #include <Wire.h>
-#include <OneWire.h>
-#include <DallasTemperature.h>
+//#include <OneWire.h>
+//#include <DallasTemperature.h>
 #include "SD.h"
 #include "SPI.h"
 
@@ -10,8 +10,6 @@
 #include "config.h"
 #include "Matrix.h"
 #include "animationHandler.h"
-
-
 
 //instances
 Matrix matrix;
@@ -31,6 +29,7 @@ void setup() {
   digitalWrite(LS_VCC, HIGH);
   digitalWrite(LS_GND, LOW);
   digitalWrite(BUTTON_GND, LOW);
+  delay(200);
   Serial.begin(115200);
   Wire.begin();
   anim = new AnimationHandler(matrix);
@@ -41,5 +40,3 @@ void loop() {
 }
 
 //-------------------------------------------------------------------------
-
-

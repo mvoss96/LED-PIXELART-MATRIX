@@ -31,6 +31,7 @@ class Matrix
 
   public:
     Matrix();
+    int xyToIndex(int x, int y);
     void setPixel(byte x, byte y, CRGB color);
     CRGB getPixel(byte x, byte y);
     void swapPixel(byte x1, byte y1, byte x2, byte y2);

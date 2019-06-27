@@ -7,6 +7,8 @@
 font5x3 font5x3;
 font7x3 font7x3;
 
+int countFrames(String param, String path);
+
 //helper functions
 int32_t readNbytes32(File& p_file, int pos = -1, byte nBytes = 4)
 {
@@ -69,6 +71,7 @@ class AnimationHandler {
       timeColor = CRGB::White;
       if (!SD.begin(SD_PIN)) {
         Serial.println("Card Mount Failed");
+        matrix.showError();
         return;
       }
       animationDir = SD.open(animationRootPath);
@@ -139,7 +142,7 @@ class AnimationHandler {
         if (frames <= 0)
         {
           Serial.println("Error! Missing value frames in config.ini! -> creating...");
-          //frames = countFrames();
+          frames = countFrames("frames",dir.name());
         }
       }
       if (DEBUG) Serial.println("Number of Frames:" + String(frames));
@@ -334,16 +337,7 @@ class AnimationHandler {
     }
 };
 
-
-
-
-byte doBackgroundStuff(Matrix &matrix)
-{
-
-  //brightness_control();
-}
-
-int count_frames(String param, String path)
+int countFrames(String param, String path)
 {
   unsigned long cTime = millis();
   int counter = 0;
@@ -363,8 +357,5 @@ int count_frames(String param, String path)
   configfile.close();
   return counter;
 }
-
-
-
 
 #endif

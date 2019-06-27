@@ -16,7 +16,7 @@ class SensorHandler {
     int temperature;
     String hours;
     String minutes;
-    int lsVarr[100] = {0};;
+    int lsVarr[100] = {0};
     byte lsVcount = 0;
     long buttonPollTime;
     long buttonPollDuration;
