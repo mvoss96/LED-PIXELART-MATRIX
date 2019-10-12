@@ -142,7 +142,7 @@ class AnimationHandler {
         if (frames <= 0)
         {
           Serial.println("Error! Missing value frames in config.ini! -> creating...");
-          frames = countFrames("frames",dir.name());
+          frames = countFrames("frames", dir.name());
         }
       }
       if (DEBUG) Serial.println("Number of Frames:" + String(frames));
@@ -150,6 +150,7 @@ class AnimationHandler {
       while (millis() < (animationStartTime + animationDuration) || pausemode)
       {
         int i = 0;
+        long autoClockTimer = millis();
         unsigned long frameTimer = millis();
         while (i < frames)
         {
@@ -163,7 +164,7 @@ class AnimationHandler {
             {
 #ifdef USE_RTC_CLOCK
               case 1:
-                  timemode();
+                timemode(false);
                 break;
 #endif
               case 2:
@@ -180,6 +181,12 @@ class AnimationHandler {
                 }
                 break;
             }
+            if  (AUTO_CLOCK_DURATION != 0) {
+              if (millis() - autoClockTimer > AUTO_CLOCK_DURATION * 1000) {
+                timemode(true);
+              }
+            }
+            autoClockTimer = millis();
           }
           while (millis() < (frameTimer + hold));
           matrix->update();
@@ -308,10 +315,11 @@ class AnimationHandler {
 #endif
     }
 
-    void timemode()
+    void timemode(bool autocycle)
     {
       CRGB colors[5] = {CRGB::White, CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Yellow};
       byte curColor = 0;
+      long autoClockTimer = millis();
       while (true)
       {
         FastLED.clear();
@@ -331,6 +339,10 @@ class AnimationHandler {
             timeColor = colors[curColor];
             break;
         }
+        if (autocycle && AUTO_CLOCK_DURATION != 0) {
+          if (millis() - autoClockTimer > AUTO_CLOCK_DURATION * 1000)
+            break;
+          }
         drawTimeAndTemp();
         matrix->update();
       }

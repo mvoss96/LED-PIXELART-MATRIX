@@ -9,6 +9,10 @@
 //how long each animation should be played in animation mode (ms)
 #define ANIMATION_DURATION 10000
 
+//automatically cycle between clockmode and animationmode (seconds)
+//set to 0 to disable
+#define AUTO_CLOCK_DURATION 0
+
 // the digital pin for controlling the WS2812 LED Matrix
 #define LED_PIN  4
 
