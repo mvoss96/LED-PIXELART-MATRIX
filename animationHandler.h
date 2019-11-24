@@ -363,7 +363,7 @@ int countFrames(String param, String path)
       counter++;
     file = folder.openNextFile();
   }
-  File configfile = SD.open(path + "/config.ini", FILE_APPEND);
+  File configfile = SD.open(path + "/config.ini", FILE_WRITE);
   Serial.println(configfile.name());
   configfile.println(param + " = " + String(counter));
   configfile.close();
