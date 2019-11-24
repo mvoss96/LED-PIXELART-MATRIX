@@ -8,7 +8,7 @@
 
 //other includes
 #include "config.h"
-#include "Matrix.h"
+#include "matrix.h"
 #include "animationHandler.h"
 
 //instances
